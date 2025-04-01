@@ -1,7 +1,7 @@
 ![A picture of a rat typing on a laptop with the words How to Write a Paper in R by Christelinda Laureijs](Figures/Cover-image.png)
 
 
-# Thesis Template
+# You can write a paper in R!
 
 This repository contains everything you need to practice making a manuscript in R. It showcases some of the most common tasks you'll perform such as inserting figures, reporting statistics (both in tables and in-line), adding citations, inserting a title page, and customizing the appearance of your document.
 
