@@ -8,9 +8,9 @@ This repository contains everything you need to practice making a manuscript in 
 
 For a full guide on how to use this template, please see the presentation slides on [How to Write a Paper in R](How-to-Write-a-Paper-in-R-PDF.pdf).
 
-For more detailed information, please read through [Thesis/Getting-Started.pdf] and see how it's made with [Thesis/Getting-Started.Rmd].
+For more detailed information, please read through [Getting-Started.pdf](Thesis/Getting-Started.pdf) and see how it's made with [Getting-Started.Rmd](Thesis/Getting-Started.Rmd).
 
-If you want to try making your own paper, try knitting [Thesis/sample-paper.Rmd]!
+If you want to try making your own paper, try knitting [sample-paper.Rmd](Thesis/sample-paper.Rmd)!
 
 Other helpful resources:
 [Open Science Skills in R](https://open-science-skills-in-r.netlify.app/)
