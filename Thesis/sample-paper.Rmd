@@ -123,9 +123,11 @@ knitr::include_graphics(here("Figures/Rat-car-schematic.png"))
 
 ## Cars Data
 
+We found that faster cars took longer distances to stop (Figure \ref{cars-plot}).
+
+
 \blindtext
 
-We found that faster cars took longer distances to stop (Figure \ref{cars-plot}).
 
 ```{r cars-plot}
 #| fig.cap = "Faster cars take a \\textit{longer} distance to \"stop\". \\label{cars-plot}",
@@ -139,6 +141,7 @@ cars %>%
 \blindtext
 
 ## Plant Data
+
 
 ```{r plantgrowthplot}
 plant_data <- PlantGrowth
@@ -164,9 +167,12 @@ ggplot(plant_data_aov, aes(sample = resid(plant_data_aov))) +
 plant_aov_summary <- summary(plant_data_aov)
 ```
 
-We weighed `r nrow(plant_data)` plants. Plant growth is affected by chemical exposure
-(p = `r pvalString(plant_aov_summary[[1]][["Pr(>F)"]][[1]])`).
+```{r}
+plant_weights <- plant_data %>% group_by(group) %>% summarize(mean_weight = mean(weight))
+```
 
+We weighed `r nrow(plant_data)` plants. Plant growth is affected by chemical exposure
+(p = `r pvalString(plant_aov_summary[[1]][["Pr(>F)"]][[1]])`). Plants with no chemical exposure weighed `r plant_weights %>% filter(group == "ctrl") %>% pull(mean_weight) %>% signif(.,3)` g.
 
 \blindtext
 
