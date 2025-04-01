@@ -26,9 +26,10 @@ always_allow_html: true
 
 ```{r set-global-chunk-options, echo=FALSE}
 knitr::opts_chunk$set(
-  dev = c("cairo_pdf"), # high-quality plots; searchable text
+  dev = c("png"), # Use cairo_pdf for high-quality plots with searchable text, but note that this may not work for Mac users (you may need to install XQuartz and then Cairo)
   dpi = 600,
   fig.align = "center",
+  out.width = "100%",
   comment = NA, # remove double hash tags in chunk output
   echo = FALSE,
   message = FALSE, # reduce distracting messages in thesis
@@ -49,12 +50,12 @@ library(extrafont) # Required for custom fonts in plots. Don't forget to run fon
 #library(ggtext) # Required for formatting plot text (e.g. coloured text in title)
 #library(patchwork) # Required for multi-plot layouts
 #library(ggsignif) # Required for significance stars and brackets on plots
-#library(ggh4x) # Required to create nested x-axis labels
-#library(ggpubr) # Required for significance brackets
 library(broom) # Required to format statistical test output into tidy dataframes
 library(knitr) # Required to access better table formatting through kable
 library(kableExtra) # Required for full width tables
 library(lazyWeave) # Provides the pvalString() function to format publication-ready p-values in a table 
+
+
 # Generate a bibliography of all packages used in this file
 # I will use this later to cite all packages that I used in my bibliography
 
@@ -67,56 +68,24 @@ knitr::write_bib(file = here("Templates","packages.bib"))
 # This theme increases the axis font sizes
 # and removes the default gray background.
 #
-# I have commented this out, but if you want to change
+# I have left this as an empty value to prevent errors 
+# caused by missing fonts, but if you want to change
 # the ggplot font family, set this to a named font 
 # on your computer.
 
-# plot_font_family <- "Segoe UI"
-
+plot_font_family <- ""
 
 # You may need to install the package extrafont and then
 # run font_import() to load these into R
 # You can then type fonts() and see a list of available fonts in R
 
-theme_set(
-  theme_classic() %+replace%
-    theme(
-      text = element_text(
-        #family = plot_font_family
-      ),
-      plot.title = element_text(
-        color = "black",
-        size = 20,
-        #family = plot_font_family,
-        margin = margin(b = 25),
-        hjust = 0.5
-      ),
-      plot.margin = margin(25, 25, 25, 25),
-      plot.caption = element_text(
-        hjust = 0,
-        #family = plot_font_family,
-        size = 12
-      ),
-      plot.caption.position = "plot",
-      axis.text = element_text(
-        size = 12,
-        color = "black"
-      ),
-      axis.title = element_text(
-        size = 16,
-        face = "bold"
-      ),
-      axis.title.y = element_text(
-        margin = margin(r = 25),
-        angle = 90,
-        vjust = 0.5
-      ),
-      axis.title.x = element_text(margin = margin(b = 25, t = 20)),
-      axis.ticks = element_blank(),
-      strip.background = element_rect(color = NA, fill = NA),
-      strip.text = element_text(size = 20)
-    )
-)
+theme_set(theme_classic() +
+  theme(text = element_text(color = "black",
+                            family = plot_font_family),
+        axis.title = element_text(size = 15, face = "bold"),
+        axis.title.x = element_text(margin = margin(t = 20)),
+        axis.title.y = element_text(margin = margin(r = 10)),
+        plot.margin = margin(20, 20, 20, 20)))
 ```
 
 \begin{centering}
@@ -170,10 +139,11 @@ issues, this book is for you! It contains tips and code snippets as well as
 answers to common questions about writing with R. Feel free to jump around to
 different sections and try things out in R as you go through the guide!
 
-This book is available in PDF format, but I would highly recommend looking at the Getting-Started.Rmd file in this same folder. It will show you the code used to produce this document, with lots of commented code samples throughout!
+This book is part of a GitHub repository: [https://github.com/christelinda-laureijs/sample-thesis](https://github.com/christelinda-laureijs/sample-thesis). Although you can read the PDF format, I would highly recommend looking at the RMarkdown file used to produce it ([Getting-Started.Rmd](https://github.com/christelinda-laureijs/sample-thesis/blob/main/Thesis/Getting-Started.Rmd)). It will show you the code used to produce this document, with lots of commented code samples throughout!
 
-For screenshots, code, and more pictures, please take a look at [How-to-Write-a-Paper-in-R-PDF.pdf](https://github.com/christelinda-laureijs/sample-thesis/blob/main/How-to-Write-a-Paper-in-R-PDF.pdf). These are slides from a seminar that I presented as part of the Open Science Skills in R workshop series in January 2025.
+For screenshots, code, and more pictures, please take a look at [How-to-Write-a-Paper-in-R-PDF.pdf](https://github.com/christelinda-laureijs/sample-thesis/blob/main/How-to-Write-a-Paper-in-R-PDF.pdf). These are slides from a seminar that I presented as part of the [Open Science Skills in R](https://open-science-skills-in-r.netlify.app/) workshop series in January 2025.
 
+If you want to start experimenting with a simple blank thesis folder, open [sample-paper.Rmd](https://github.com/christelinda-laureijs/sample-thesis/blob/main/Thesis/sample-paper.Rmd) and try knitting it!
 
 ## What are the advantages of writing in R?
 
@@ -243,7 +213,7 @@ theme that you set up will ensure that your plots look consistent. You do not
 need to manually number your figures or subheadings, format your Table of
 Contents, or readjust paragraphs each time you insert or remove a picture. You
 can easily cross-reference figures, equations and chapters. To insert a list of
-figures, just type `\\listoffigures` – see, it's very doable!
+figures, just type `\listoffigures` – see, it's very doable!
 
 Typesetting details like paragraph spacing, margins, and fonts are all specified
 in the document preamble. You just need to write and \LaTeX will handle the
@@ -310,7 +280,7 @@ knitr::include_graphics(here::here("Figures/Dropcaps-comparison.png"))
 
 If you need to use equations, \LaTeX\ is one of the best ways to create clean,
 well-aligned equations. Look in the \LaTeX\ documentation to learn how to align
-by equal signs or other characters!
+by equal signs, make more complicated equations, or draw schematics!
 
 \begin{equation}
 \int_{a}^{b} x^2 \,dx
@@ -342,6 +312,8 @@ also save the changes to the online version of your file, hosted on GitHub. It
 means that you'll always have a backup copy, and if something wrong happens, you
 can revert back to an older version and see what changes you made.
 
+P.S. For an introduction on incorporating version control with your paper, see chapter 2 of [Open Science Skills in R](https://open-science-skills-in-r.netlify.app/welcome-back-lets-git-with-it.)!
+
 ## What are the disadvantages of writing in R?
 
 ### Learning curve
@@ -356,10 +328,12 @@ and GitHub.
 
 Things will break down, and you'll spend way more time than you had anticipated
 dealing with error messages. During these times, it does seem much easier to
-just open a Word document and start typing.
+just open a Word document and start typing. To minimize errors, I would suggest these things:
 
-To minimize errors, I would suggest these things:
-
+-   Put a "setup chunk" at the start of your RMD file with things like the
+colour themes, libraries you need, and ggplot themes. This is an efficient way
+to ensure that you have everything needed for later code chunks. See the setup
+chunk in the .Rmd file used to produce this document!
 -   Run each code chunk from top to bottom to catch any errors. Ensure that
     everything runs before knitting.
 -   Knit your document frequently as you go to help spot errors.
@@ -373,12 +347,16 @@ To minimize errors, I would suggest these things:
     define a variable in the console, but not your document you won't realize
     the problem until you have a fresh R session.
 -   Use `knitr::knit_exit()` to stop knitting early. It can be a useful way to
-    identify the specific line of code that is causing knitting issues.
+    identify the specific line of code that is causing knitting issues. This is also helpful if you have draft content below this chunk that you aren't ready to show in the final PDF.
 -   Make sure that your PDF is closed when you knit. If you're knitting the file
-    and the PDF is still open somewhere on your computer, it will break the
-    code.
+    and the PDF is still open somewhere on your computer (e.g, in a browser, in Adobe PDF, etc.), it will break the knitting process and you will get errors.
 -   Be sure to use R Projects and a tidy project framework to make it easy for R
-    and you to find things.
+    and you to find things. See chapter 1 of the [Open Science Skills in R](https://open-science-skills-in-r.netlify.app/) website!
+-   If you're getting error messages about images not being
+found, don't forget to check your knit settings (dropdown arrow by the *Knit*
+icon). Click on the Project Directory setting. You may need to switch the Knit
+Directory from *Document Directory* to *Project Directory* or the other way
+around. If one directory isn't working, try the other!
 
 ### Separate content and layout
 
@@ -407,38 +385,13 @@ know how to comment a PDF.
 
 # How-Tos
 
-## Tips
-
-Try putting a setup chunk at the start of your document with things like the
-colour themes, libraries you need, and ggplot themes. See the setup chunk in the .Rmd file used to produce this document!
-
-
-## Try knitting this document!
-
-*A note for Mac Users:* When you knit the document the first time, you might see
-error messages with something about Cairo and your graphics device. Every device
-is different, but you might be able to fix it by installing XQuartz and then
-Cairo.
-
-You may also receive error messages about missing fonts. To fix this, replace
-`plot_font_family = "Segoe UI"` with a font that is on your system.
-
-*A note for all users:* If you're getting error messages about images not being
-found, don't forget to check your knit settings (dropdown arrow by the *Knit*
-icon). Click on the Project Directory setting. You may need to switch the Knit
-Directory from *Document Directory* to *Project Directory* or the other way
-around. If one directory isn't working, try the other!
-
 ## Inserting citations
 
 Citation managers like Zotero (free; highly recommended) make it easy to link
-your citations in R. You will need the BetterBibTeX plugin, and enable citation keys. You can then export your Zotero collection as a .bib file (ensure that *keepUpdated* is checked to make the .bib file auto-update).
-
-For more instructions with screenshots, please see slides 68 and onwards in [How-to-Write-a-Paper-in-R-PDF.pdf](https://github.com/christelinda-laureijs/sample-thesis/blob/main/How-to-Write-a-Paper-in-R-PDF.pdf).
+your citations in R. You will need the BetterBibTeX plugin, and enable citation keys. You can then export your Zotero collection as a .bib file (ensure that *keepUpdated* is checked to make the .bib file auto-update). For more instructions with screenshots, please see slides 68 and onwards in [How-to-Write-a-Paper-in-R-PDF.pdf](https://github.com/christelinda-laureijs/sample-thesis/blob/main/How-to-Write-a-Paper-in-R-PDF.pdf).
 
 Now, you can type something like [\@delamonte2005], and the citation will be
-rendered as an in-text citation: Insulin is a hormone that regulates blood
-glucose levels, digestive processes, and body weight [@delamonte2005].
+rendered as an in-text citation: [@delamonte2005].
 
 This document uses APA formatting because of the 'apa.csl' file in the
 `Templates/` folder. If you want a different format, you can download the
@@ -486,8 +439,8 @@ it in R.
 ### Figure References
 
 At the end of the `fig.cap` chunk option, you also have the option of adding a
-figure label in the form of '\\\\label{text}'. When you write a reference to
-Figure '\\\\label{methods-schematic}', \LaTeX\ will print out the text "Figure
+figure label in the form of `\label{text}`. When you write a reference to
+Figure `\label{methods-schematic}`, \LaTeX\ will print out the text "Figure
 \ref{methods-schematic}". If you reorder your figures, \LaTeX\ will automatically
 change the figure numbers.
 
@@ -578,8 +531,8 @@ plant_aov_summary[[1]][["Pr(>F)"]]
 ```
 
 The first p-value is the p-value associated with the treatment groups. The
-second is NA because it is for the model residuals. To extract the first
-p-value, add another [[1]] to select the first element of this list. The final
+second is `NA` because it is for the model residuals. To extract the first
+p-value, add another `[[1]]` to select the first element of this list. The final
 code is:
 
 ```{r extract-p-values-first-element, echo=T}
@@ -706,20 +659,16 @@ plant_data_aov %>%
 
 ## \LaTeX\ Basics
 
-You can learn a lot about \LaTeX\ as you customize your paper. This is a very
-valuable skill, and it will be particularly useful if you're planning to stay in
-academia.
-
-Most \LaTeX\ commands start with a forward slash and include arguments in curly
+You can learn a lot about \LaTeX\ as you customize your paper. This is a very valuable skill, and it will be particularly useful if you're planning to stay in academia. Most \LaTeX\ commands start with a forward slash and include arguments in curly
 brackets. Many of them are intuitive:
 
-Use `\\setcounter{tocdepth}{2}` to set the table of content depth to header 2.
+Use `\setcounter{tocdepth}{2}` to set the table of content depth to header 2.
 
-Use `\\tableofcontents` to insert a table of contents.
+Use `\tableofcontents` to insert a table of contents.
 
 If you want to make any cross references, you can define them using labels. You
 may have seen this in the *Inserting Images* section. For example, you can write
-Figure '\\\\label{insulin-pathway}' to automatically include the correct figure
+Figure `label{insulin-pathway}` to automatically include the correct figure
 number.
 
 It's not recommended to do too much formatting within your document. Ideally,
@@ -730,7 +679,7 @@ all of your formatting styles should be defined in the preamble.
 ## Changing the formatting
 
 If you want to change how any part of this document looks, go to
-Templates/sample-preamble.tex.
+[Templates/sample-preamble.tex](https://github.com/christelinda-laureijs/sample-thesis/blob/main/Templates/sample-preamble.tex). For screenshots and more information, see slides 57-67 of [How-to-Write-a-Paper-in-R-PDF.pdf](https://github.com/christelinda-laureijs/sample-thesis/blob/main/How-to-Write-a-Paper-in-R-PDF.pdf).
 
 ### Other Tools
 
