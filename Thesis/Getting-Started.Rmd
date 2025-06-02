@@ -681,6 +681,19 @@ all of your formatting styles should be defined in the preamble.
 If you want to change how any part of this document looks, go to
 [Templates/sample-preamble.tex](https://github.com/christelinda-laureijs/sample-thesis/blob/main/Templates/sample-preamble.tex). For screenshots and more information, see slides 57-67 of [How-to-Write-a-Paper-in-R-PDF.pdf](https://github.com/christelinda-laureijs/sample-thesis/blob/main/How-to-Write-a-Paper-in-R-PDF.pdf).
 
+## Bibliography
+
+To set up a bibliography, you can store your references in a plaintext file called a bib file (the filename will end with *.bib*). You can easily set this up with Zotero so the file will auto-update when you add new references. You can then cite references using code (for example use *[\@smith2020]*). To learn more about this process, please see slides 68-74 of [How-to-Write-a-Paper-in-R-PDF.pdf](https://github.com/christelinda-laureijs/sample-thesis/blob/main/How-to-Write-a-Paper-in-R-PDF.pdf).
+
+One common question is: How do I set the location of the bibliography into a custom location? R will automatically place the reference at the end of your file, but you may want to have additional content like appendices after the bibliography.
+
+You can manually set the location of the bibliography in your document using the following text:
+
+```{r eval=F, echo=T}
+::: {#refs}
+:::
+```
+
 ### Other Tools
 
 To create high-quality schematics, I would highly recommend
