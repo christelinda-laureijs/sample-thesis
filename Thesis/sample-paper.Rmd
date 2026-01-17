@@ -17,7 +17,7 @@ indent: true
 
 ```{r setup, echo = FALSE}
 knitr::opts_chunk$set(
-  dev = c("png"), # Use cairo_pdf for high-quality plots with searchable text, but note that this may not work for Mac users
+  dev = c("png"), # Use "cairo_pdf" for high-quality plots with searchable text (works for Windows but may not work for Mac users). If it works, change to "cairo_pdf".
   dpi = 600,
   fig.align = "center",
   out.width = "100%",
@@ -32,7 +32,6 @@ knitr::opts_chunk$set(
 library(ggplot2)
 library(dplyr)
 library(here)
-library(lazyWeave)
 library(broom)
 library(stringr)
 library(knitr)
@@ -184,7 +183,7 @@ plant_weights <- plant_data %>% group_by(group) %>% summarize(mean_weight = mean
 ```
 
 We weighed `r nrow(plant_data)` plants. Plant growth is affected by chemical exposure
-(p = `r pvalString(plant_aov_summary[[1]][["Pr(>F)"]][[1]])`). Plants with no chemical exposure weighed `r plant_weights %>% filter(group == "ctrl") %>% pull(mean_weight) %>% signif(.,3)` g.
+(p = `r round(plant_aov_summary[[1]][["Pr(>F)"]][[1]], 3)`). Plants with no chemical exposure weighed `r plant_weights %>% filter(group == "ctrl") %>% pull(mean_weight) %>% signif(.,3)` g.
 
 \blindtext
 
@@ -193,7 +192,7 @@ plant_data_aov %>%
   tidy() %>%
   mutate(
     across(sumsq:statistic,round, 2),
-    p.value = pvalString(p.value),
+    p.value = round(p.value, 3),
     term = str_to_title(term)
   ) %>%
   rename(
@@ -227,5 +226,9 @@ Here is a citation [@ankri1994]. Here are multiple citations [@ankri1994; @wang2
 # References
 
 
+::: {#refs}
+:::
 
+
+# Appendix
 
