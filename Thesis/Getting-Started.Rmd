@@ -53,7 +53,7 @@ library(extrafont) # Required for custom fonts in plots. Don't forget to run fon
 library(broom) # Required to format statistical test output into tidy dataframes
 library(knitr) # Required to access better table formatting through kable
 library(kableExtra) # Required for full width tables
-library(lazyWeave) # Provides the pvalString() function to format publication-ready p-values in a table 
+
 
 
 # Generate a bibliography of all packages used in this file
@@ -542,14 +542,10 @@ plant_aov_summary[[1]][["Pr(>F)"]][[1]]
 ### Rounding
 
 To make "prettier" p-values you could round them to 3 digits using the `round()`
-function. However, I would suggest using the `pvalString()` function from the
-`LazyWeave` package. This rounds p-values to three digits, and automatically
-formats them to publication style p-values if they are smaller or larger than
-typical endpoints. As an example, pvalString(0.00000005) will become p
-`r pvalString(0.0000005)`.
+function.
 
 ```{r extract-p-values-pval-string, echo=T}
-pvalString(plant_aov_summary[[1]][["Pr(>F)"]][[1]])
+round(plant_aov_summary[[1]][["Pr(>F)"]][[1]], 3)
 ```
 If you need to round to a specific number of significant digits, use `signif()`. This code chunk is an example of rounding to three significant digits:
 
@@ -562,7 +558,7 @@ Now, putting it into an in-text R code block, we can write something like this
 with automatically inserted p-values.
 
 \begin{quote}
-Plant mass varied significantly according to treatment type (p = `r pvalString(plant_aov_summary[[1]][["Pr(>F)"]][[1]])`).
+Plant mass varied significantly according to treatment type (p = `r round(plant_aov_summary[[1]][["Pr(>F)"]][[1]], 3)`).
 \end{quote}
 
 
@@ -597,7 +593,7 @@ plant_data_aov %>%
   tidy() %>%
   mutate(
     across(sumsq:statistic,round, 2),
-    p.value = pvalString(p.value),
+    p.value = round(p.value, 3),
     term = str_to_title(term)
   ) %>%
   rename(
@@ -635,7 +631,7 @@ plant_data_aov %>%
   tidy() %>%
   mutate(
     statistic = round(statistic, 2),
-    p.value = pvalString(p.value),
+    p.value = round(p.value, 2),
     term = str_to_title(term)
   ) %>%
   rename(
