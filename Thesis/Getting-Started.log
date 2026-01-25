@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.25)  17 JAN 2026 17:31
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.25)  24 JAN 2026 15:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1101,6 +1101,11 @@ File: ../Figures/Dropcaps-comparison.png Graphic file (type bmp)
 [5]
 
 [6]
+Overfull \hbox (41.34024pt too wide) in paragraph at lines 522--526
+[]\TU/EBGaramond(0)/b/n/12 If you receive error messages about not having a LaTeX installation, run \TU/lmtt/m/n/12 tinytex::install_tinytex()\TU/EBGaramond(0)/b/n/12 .
+ []
+
+
 
 [7]
 
@@ -1119,11 +1124,11 @@ File: ../Figures/Rat-car-schematic.png Graphic file (type bmp)
 File: ../Figures/Extract-values-annotated.png Graphic file (type bmp)
 <../Figures/Extract-values-annotated.png>
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 706.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 710.
 
 
 [12]
-Underfull \hbox (badness 2772) in paragraph at lines 721--727
+Underfull \hbox (badness 2772) in paragraph at lines 725--731
 []\TU/EBGaramond(0)/b/n/12 Look at the results. If I want to extract the p-value row, it looks like I will need to write
  []
 
@@ -1132,7 +1137,7 @@ Underfull \hbox (badness 2772) in paragraph at lines 721--727
 [13]
 
 [14]
-Underfull \vbox (badness 10000) detected at line 854
+Underfull \vbox (badness 10000) detected at line 858
  []
 
 

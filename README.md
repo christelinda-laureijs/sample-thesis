@@ -23,6 +23,12 @@ You will need RStudio and R to experiment with this code.
   * knitr
   
 6. Click the `Knit` button and a PDF should pop open shortly!
+7. If you receive error messages about not having a LaTeX installation, run the following code:
+
+``` r
+tinytex::install_tinytex()
+```
+
 
 ## Resources
 

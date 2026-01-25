@@ -339,6 +339,7 @@ chunk in the .Rmd file used to produce this document!
 -   Knit your document frequently as you go to help spot errors.
 -   R will knit documents using a blank R session, so everything that needs to
     be in the document must be defined in your script.
+-   If you receive error messages about not having a LaTeX installation, run `tinytex::install_tinytex()`. This installs a small, efficient version of LaTeX that has everything R needs to knit PDFs.
 -   Turn off the "Save workspace image" option in your R Global Options to
     prevent old loaded packages and hidden variables from 'hovering' in the
     background and creating strange rrors.
